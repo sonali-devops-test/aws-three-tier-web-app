@@ -7,13 +7,13 @@ on:
 
 env:
   AWS_REGION: ap-south-1
-  AWS_ACCOUNT_ID: "632718277269"
+  AWS_ACCOUNT_ID: "299349364198"
   ECR_REPO: "dev/own-tenant-portal"
-  IMAGE_NAME: "632718277269.dkr.ecr.ap-south-1.amazonaws.com/dev/own-tenant-portal"
+  IMAGE_NAME: "299349364198.dkr.ecr.ap-south-1.amazonaws.com/dev/own-tenant-portal"
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: React
 
     permissions:
       id-token: write
@@ -30,7 +30,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::632718277269:role/sonaliJ-oidc-github-role
+          role-to-assume: arn:aws:iam::299349364198:role/OIDC-own-tenant-portal
           aws-region: ${{ env.AWS_REGION }}
 
 
@@ -66,7 +66,7 @@ jobs:
       - name: Deploy via SSM (Stable Updated)
         run: |
           aws ssm send-command \
-            --instance-ids i-00dbf9111b9535964 \
+            --instance-ids i-0833b1d3f14c4cd38 \
             --document-name "AWS-RunShellScript" \
             --comment "Deploy Frontend via ECR" \
             --parameters '{
@@ -82,17 +82,17 @@ jobs:
                 "docker --version",
       
                 "# Login to ECR using official AWS command",
-                "aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 632718277269.dkr.ecr.ap-south-1.amazonaws.com",
+                "aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 299349364198.dkr.ecr.ap-south-1.amazonaws.com",
       
                 "# Stop & remove existing container",
                 "sudo docker stop web || true",
                 "sudo docker rm web || true",
       
                 "# Pull latest image from ECR",
-                "sudo docker pull 632718277269.dkr.ecr.ap-south-1.amazonaws.com/dev/own-tenant-portal:latest",
+                "sudo docker pull 299349364198.dkr.ecr.ap-south-1.amazonaws.com/dev/own-tenant-portal:latest",
       
                 "# Run container (with ARM64 platform for T4g)",
-                "sudo docker run -d --name web --platform linux/arm64 -p 80:80 --restart always 632718277269.dkr.ecr.ap-south-1.amazonaws.com/dev/own-tenant-portal:latest",
+                "sudo docker run -d --name web --platform linux/arm64 -p 80:80 --restart always 299349364198.dkr.ecr.ap-south-1.amazonaws.com/dev/own-tenant-portal:latest",
       
                 "# Show running containers and images",
                 "sudo docker ps",
