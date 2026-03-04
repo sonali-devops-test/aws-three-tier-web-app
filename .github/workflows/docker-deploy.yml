@@ -13,7 +13,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, React]
+    runs-on: runs-on: [self-hosted, Linux, ARM64, React]
 
     permissions:
       id-token: write
