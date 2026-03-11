@@ -1,6 +1,8 @@
 # this Build stage..
 #pushing Github code to Gitlab via script 
 #second commit ..pushed to Gitlab
+
+#workflow changes 1
 FROM node:18-alpine AS build
 
 WORKDIR /usr/src/app
