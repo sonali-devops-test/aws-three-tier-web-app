@@ -1,3 +1,4 @@
+
 name: Sync GitHub Branch to GitLab
 
 on:
@@ -7,6 +8,7 @@ on:
         description: "Branch to push to GitLab"
         required: true
         default: "main"
+        # we can change this to any branch like "dev, feature*"
 
 jobs:
   sync:
@@ -28,5 +30,5 @@ jobs:
         run: |
           git push gitlab ${{ github.event.inputs.branch }}
 
-# Optional safer push
+# here we are overwritting on gitlab repo .......if we dont want conflicts with clients work then Optional safer push
 # git push gitlab ${{ github.event.inputs.branch }} --force-with-lease
