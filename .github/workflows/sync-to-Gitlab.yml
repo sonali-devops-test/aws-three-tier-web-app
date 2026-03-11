@@ -1,0 +1,32 @@
+name: Sync GitHub Branch to GitLab
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to push to GitLab"
+        required: true
+        default: "main"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add GitLab remote
+        run: |
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/sonali-Gitlab/testing-migration-project.git
+        
+          
+
+      - name: Push selected branch to GitLab
+        run: |
+          git push gitlab ${{ github.event.inputs.branch }}
+
+# Optional safer push
+# git push gitlab ${{ github.event.inputs.branch }} --force-with-lease
