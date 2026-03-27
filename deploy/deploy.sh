@@ -4,7 +4,7 @@ set -e
 
 DOCKERHUB_USERNAME="sonalis9"
 
-echo "Stopping old containers...."
+echo "Stopping old containers..."
 docker stop backend || true
 docker stop frontend || true
 
