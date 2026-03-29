@@ -20,7 +20,7 @@ COPY . .
 # Build React app for production
 RUN npm run build
 
-# Second stage: use Nginx to serve the built static files
+# Second stage: use Nginx to serve the built static files,,..
 FROM nginx:stable-alpine
 
 # Copy the build output to Nginx html folder
