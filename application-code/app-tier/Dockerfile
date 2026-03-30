@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 # Copy package.json / package-lock.json (if exists)
 COPY package*.json ./
 
-# Install dependencies (production only)
+# Install dependencies (production only)..
 RUN npm ci --only=production
 
 # Copy rest of backend code
